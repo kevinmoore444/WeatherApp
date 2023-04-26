@@ -16,19 +16,16 @@ const bull = (
   );
 
 
-const TodaysForecast = () => {
+const TodaysForecast = (props) => {
   return (
     <div>
-    <h1>Today's Weather in Chicago, Illinois</h1>
+    <h1>Today's Weather in {props.locationData.name}, {props.locationData.region}</h1>
     <Container sx={{marginY: 5, display: 'flex', justifyContent: 'center'}}>
         {/* Current Date/Time */}
         <Card sx={{ width: '30%', height: '300px'}}>
             <CardContent sx={{alignItems: 'center', justifyContent:'center', marginTop:'100px'}}>
                 <Typography variant="h5" component="div">
-                April 21st, 2023
-                </Typography>
-                <Typography variant="h5" component="div">
-                1:07 PM
+                {props.locationData.localtime}
                 </Typography>
             </CardContent>
         </Card>
@@ -36,33 +33,30 @@ const TodaysForecast = () => {
         {/* Current Temperature */}
         <Card sx={{ width: '30%', height: '300px'}}>
             <CardContent sx={{marginTop:'50px'}}>
-                {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Word of the Day
-                </Typography> */}
                 <Typography variant="p" component="div">
                 Temperature 
                 </Typography>
                 <Typography variant="h3" component="div">
-                60° 
+                {props.weatherData.temp_f}°
                 </Typography>
                 <Typography variant="p" component="div" sx={{marginTop:'20px'}}>
                 Feels Like 
                 </Typography>
                 <Typography variant="h3" component="div">
-                53° 
+                {props.weatherData.feelslike_f}°
                 </Typography>
             </CardContent>
         </Card>
         {/* Current Condition */}
         <Card sx={{ width: '30%', height: '300px'}}>
             <CardMedia
-                sx={{width: 1/2, height: 1/2, marginLeft: 9, marginTop: 3 }}
-                image="https://static.vecteezy.com/system/resources/previews/008/310/370/original/partly-cloudy-i-flat-multicolor-icon-vector.jpg"
-                title="weather icon"
+                sx={{width: 1/2, height: 1/2, mx: 'auto', marginTop:'20px' }}
+                image={props.weatherData.condition.icon}
+                title="weather_icon"
             />
             <CardContent>
                 <Typography variant="h5">
-                Partly Cloudy
+                {props.weatherData.condition.text}
                 </Typography>
             </CardContent>
         </Card>

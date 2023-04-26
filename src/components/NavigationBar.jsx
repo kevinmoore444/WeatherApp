@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +13,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
 
 
-export default function NavigationBar() {
+export default function NavigationBar(props) {
+    const [searchValue, setSearchValue] = useState("")
+
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(searchValue)
+      props.onSearch(searchValue);
+    }
 
     //Material UI styling for Search Bar
 const Search = styled('div')(({ theme }) => ({
@@ -75,12 +84,15 @@ const Search = styled('div')(({ theme }) => ({
         <Box sx={{ flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar sx={{justifyContent: "center" }}>
-                    <Search> 
+                    {/* <Search> 
                     <SearchIconWrapper>
                         <SearchIcon />
                     </SearchIconWrapper>
-                    <StyledInputBase placeholder="Search City or Zip" inputProps={{ 'aria-label': 'search'}}/>
-                    </Search>
+                    <StyledInputBase placeholder="Search City or Zip" inputProps={{ 'aria-label': 'search'}} type='text'/>
+                    </Search> */}
+                    <form onSubmit={ handleSubmit }>
+                      <input type="text" onChange={(e) => {setSearchValue(e.target.value) }} />
+                    </form>
                 </Toolbar>
             </AppBar>
         </Box>
@@ -91,8 +103,8 @@ const Search = styled('div')(({ theme }) => ({
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' }, justifyContent: "center" }}>
                 {/* onClick={sendInquiry} */}
                 <Button sx={{ my: 2, color: 'white', display: 'block' }}>Today</Button>
-                <Button sx={{ my: 2, color: 'white', display: 'block' }}>Hourly</Button>
-                <Button sx={{ my: 2, color: 'white', display: 'block' }}>10-Day</Button>
+                <Button sx={{ my: 2, color: 'white', display: 'block' }} ><Link to={`/threeday/${searchValue}`}>3 Day</Link></Button>
+                <Button sx={{ my: 2, color: 'white', display: 'block' }}>Astronomy</Button>
                 <Button sx={{ my: 2, color: 'white', display: 'block' }}>Weekend</Button>
             </Box>
             </Toolbar>
